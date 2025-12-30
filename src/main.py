@@ -5,8 +5,8 @@ from views.home import homeView
 def main(page: ft.Page):
 
     
-    page.bgcolor = "#fdf0d5"
-    
+    page.vertical_alignment = ft.MainAxisAlignment.CENTER
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     def view_pop(view):
         page.views.pop()
         top_view = page.views[-1]

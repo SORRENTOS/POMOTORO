@@ -10,17 +10,18 @@ class Timer(ft.Container):
         self.segundos = 0
         self.minutos = 1
         self.horas = 0
-        self.texto = ft.Text(value=f"{self.horas}:{self.minutos}:{self.segundos}",color=ft.Colors.BLACK)
-
-
-
+        self.texto = ft.Text(value=f"{self.horas}:{self.minutos}:{self.segundos}",size=50,color=ft.Colors.WHITE,text_align=ft.TextAlign.CENTER)
+        self.border_radius = 10
+        self.height = 500
+        self.width = 500
+        self.alignment = ft.alignment.top_center
         #Botones para el tiempo
         
 
 
 
 
-        self.InputMinutos = ft.TextField(label="0")
+        self.InputMinutos = ft.TextField(label="0",bgcolor="#780000",border_width=0,border_radius=20,width=70)
         self.btnSumarMinuto = ft.IconButton(icon=ft.Icons.PLUS_ONE,on_click= lambda x : self.modificar_minutos("+"))
         self.btnRestarMinuto = ft.IconButton(icon=ft.Icons.PLUS_ONE,on_click = lambda x : self.modificar_minutos("-"))
         self.columnaMinutos = ft.Column([
@@ -29,19 +30,31 @@ class Timer(ft.Container):
             self.btnRestarMinuto
 
 
-        ])
+        ],horizontal_alignment=ft.CrossAxisAlignment.CENTER,alignment=ft.MainAxisAlignment.CENTER,width=100)
+
+        self.InputHoras = ft.TextField(label="0",bgcolor="#780000",border_width=0,border_radius=20,width= 70)
+        self.btnSumarHora = ft.IconButton(icon=ft.Icons.le,on_click= lambda x : self.modificar_horas("+"))
+        self.btnRestarhora = ft.IconButton(icon=ft.Icons.PLUS_ONE,on_click = lambda x : self.modificar_horas("-"))
+        self.columnahora = ft.Column([
+            self.btnSumarHora,
+            self.InputHoras,
+            self.btnRestarhora
+
+
+        ],horizontal_alignment=ft.CrossAxisAlignment.CENTER,alignment=ft.MainAxisAlignment.CENTER,width=100)
+
 
 
 
 
         #controles
-        controles = ft.ResponsiveRow([
-
+        controles = ft.Column([
             self.texto,
             ft.Button(text="timer",bgcolor=ft.Colors.BLACK,on_click= self.timer),
-            self.columnaMinutos
+            ft.Row([self.columnahora,self.columnaMinutos],alignment=ft.MainAxisAlignment.CENTER,wrap=True)
 
-        ])
+
+        ],horizontal_alignment=ft.CrossAxisAlignment.CENTER,alignment=ft.MainAxisAlignment.START,expand=True)
         self.content = controles
 
 
@@ -82,6 +95,15 @@ class Timer(ft.Container):
         self.texto.value = f"{self.horas}:{self.minutos}:{self.segundos}"
 
         self.update()
+    def modificar_horas(self,x):
+        if x == "+":
+            self.horas += 1
+        elif x =="-":
+            self.horas -=1
+        self.texto.value = f"{self.horas}:{self.minutos}:{self.segundos}"
+
+        self.update()
+
 homeView  = ft.View(
 "/home",[
     Timer(),
@@ -90,8 +112,7 @@ homeView  = ft.View(
 
     
 
-]
-
+],vertical_alignment= ft.MainAxisAlignment.CENTER, horizontal_alignment= ft.CrossAxisAlignment.CENTER
 
 
 
