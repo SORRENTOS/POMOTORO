@@ -1,7 +1,7 @@
 import flet as ft
-from views.home import homeView
+from views.home import home_view
 
-
+from views.CustomControls.DrawMenu import GenerarDrawer
 def main(page: ft.Page):
 
     
@@ -11,6 +11,22 @@ def main(page: ft.Page):
         page.views.pop()
         top_view = page.views[-1]
         page.go(top_view.route) #page.go("/ruta")
+
+
+
+#DRAWER
+
+    drawerMenu = GenerarDrawer()
+
+#APPBAR
+    app_bar = ft.AppBar(
+        title=ft.Text("Pomotoro"),
+        bgcolor="#780000"
+        ,leading=ft.IconButton(
+            ft.Icons.MENU,
+            on_click=lambda e: page.open(drawerMenu)  # abre el drawer global
+        )
+    )
 
 
 # FUNCIONES DEL LOGIN
@@ -63,7 +79,7 @@ def main(page: ft.Page):
             ft.View("/",[containerMaster],bgcolor="#fdf0d5"),
         )
         if page.route == "/home":
-            page.views.append(homeView)
+            page.views.append(home_view(drawerMenu,app_bar))
         page.update()
 
 

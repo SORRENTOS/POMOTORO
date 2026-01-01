@@ -8,13 +8,13 @@ class Timer(ft.Container):
         super().__init__()
         self.bgcolor ="#c1121f"
         self.segundos = 0
-        self.minutos = 1
+        self.minutos = 0
         self.horas = 0
-        self.texto = ft.Text(value=f"{self.horas}:{self.minutos}:{self.segundos}",size=50,color=ft.Colors.WHITE,text_align=ft.TextAlign.CENTER)
+        self.texto = ft.Text(value=f"{self.horas:02}:{self.minutos:02}:{self.segundos:02}",size=50,color=ft.Colors.WHITE,text_align=ft.TextAlign.CENTER)
         self.contenedorTexto = ft.Container(content=self.texto,bgcolor="#780000",padding=10,border_radius=10,margin= ft.margin.only(top=15))
         
         self.border_radius = 10
-        self.height = 300
+        self.height = 350
         self.width = 500
         self.alignment = ft.alignment.top_center
         #Botones para el tiempo
@@ -27,8 +27,12 @@ class Timer(ft.Container):
         self.btnSumarMinuto = ft.IconButton(icon=ft.Icons.PLUS_ONE,on_click= lambda x : self.modificar_minutos("+"),expand=True,bgcolor="#780000")
         self.btnRestarMinuto = ft.IconButton(icon=ft.Icons.PLUS_ONE,on_click = lambda x : self.modificar_minutos("-"))
         self.columnaMinutos = ft.Column([
+            ft.Text("Minutos"),
             self.btnSumarMinuto,
             self.InputMinutos,
+
+        
+
             self.btnRestarMinuto
 
 
@@ -38,6 +42,7 @@ class Timer(ft.Container):
         self.btnSumarHora = ft.IconButton(icon=ft.Icons.PLUS_ONE,on_click= lambda x : self.modificar_horas("+"))
         self.btnRestarhora = ft.IconButton(icon=ft.Icons.PLUS_ONE,on_click = lambda x : self.modificar_horas("-"))
         self.columnahora = ft.Column([
+            ft.Text("Horas"),
             self.btnSumarHora,
             self.InputHoras,
             self.btnRestarhora
@@ -78,11 +83,11 @@ class Timer(ft.Container):
                         inicio = False
                         if (self.segundos - 1) >= 0:
                             self.segundos -= 1
-                        self.texto.value = f"{self.horas}:{self.minutos}:{self.segundos}"
+                        self.texto.value = f"{self.horas:02}:{self.minutos:02}:{self.segundos:02}"
                         await asyncio.sleep(1)
                         self.update()
 
-                    f"{self.horas}:{self.minutos}:{self.segundos}"
+                    f"{self.horas:02}:{self.minutos:02}:{self.segundos:02}"
                     self.update()                            
                 if (self.horas - 1) >= 0:
                     self.horas -=1
@@ -131,7 +136,7 @@ class TodoList(ft.Container):
         self.border_radius = 10
         self.height = 300
         self.width = 500
-    
+        self.padding = 10
 
 
         self.filaTarea = ft.Row([self.InputTarea,self.btnAgregarTarea],alignment=ft.MainAxisAlignment.CENTER)
@@ -142,6 +147,9 @@ class TodoList(ft.Container):
         self.columnaDeTareas = ft.Column([],horizontal_alignment=ft.CrossAxisAlignment.CENTER,scroll=ft.ScrollMode.AUTO,expand=True)
         self.content = ft.Column([self.filaTarea,self.columnaDeTareas])
 
+
+
+    
     def agregarTarera(self,e):
             nuevatarea = Tarea()
             self.columnaDeTareas.controls.append(nuevatarea)
@@ -151,19 +159,27 @@ class TodoList(ft.Container):
     async def anim_wait(self,tarea):
         await asyncio.sleep(0.01)
         tarea.animateTarea()
-homeView  = ft.View(
-"/home",[
-    Timer(),
-    TodoList()
-
-
-    
-
-],vertical_alignment= ft.MainAxisAlignment.CENTER, horizontal_alignment= ft.CrossAxisAlignment.CENTER
 
 
 
+def home_view (drawerMenu,navBar):
+
+    homeView  = ft.View(
+    "/home",[
+        Timer(),
+        TodoList(),
+
+
+        
+
+    ],vertical_alignment= ft.MainAxisAlignment.CENTER, horizontal_alignment= ft.CrossAxisAlignment.CENTER
 
 
 
-)
+
+
+    )
+    homeView.drawer =drawerMenu
+    homeView.navigation_bar = navBar
+    homeView.bgcolor = "#fdf0d5"
+    return homeView
