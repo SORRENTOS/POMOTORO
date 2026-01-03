@@ -24,8 +24,8 @@ class Timer(ft.Container):
 
 
         self.InputMinutos = ft.TextField(label="0",bgcolor="#780000",border_width=0,border_radius=20,width=70,text_align=ft.TextAlign.CENTER)
-        self.btnSumarMinuto = ft.IconButton(icon=ft.Icons.PLUS_ONE,on_click= lambda x : self.modificar_minutos("+"),expand=True,bgcolor="#780000")
-        self.btnRestarMinuto = ft.IconButton(icon=ft.Icons.PLUS_ONE,on_click = lambda x : self.modificar_minutos("-"))
+        self.btnSumarMinuto = ft.IconButton(icon=ft.Icons.ARROW_CIRCLE_UP_ROUNDED,on_click= lambda x : self.modificar_minutos("+"),expand=True,bgcolor="#780000",icon_color="#fdf0d5")
+        self.btnRestarMinuto = ft.IconButton(icon=ft.Icons.ARROW_CIRCLE_DOWN_ROUNDED,on_click = lambda x : self.modificar_minutos("-"),expand=True,bgcolor="#780000",icon_color="#fdf0d5")
         self.columnaMinutos = ft.Column([
             ft.Text("Minutos"),
             self.btnSumarMinuto,
@@ -39,8 +39,8 @@ class Timer(ft.Container):
         ],horizontal_alignment=ft.CrossAxisAlignment.CENTER,alignment=ft.MainAxisAlignment.CENTER,width=100)
 
         self.InputHoras = ft.TextField(label="0",bgcolor="#780000",border_width=0,border_radius=20,width= 70)
-        self.btnSumarHora = ft.IconButton(icon=ft.Icons.PLUS_ONE,on_click= lambda x : self.modificar_horas("+"))
-        self.btnRestarhora = ft.IconButton(icon=ft.Icons.PLUS_ONE,on_click = lambda x : self.modificar_horas("-"))
+        self.btnSumarHora = ft.IconButton(icon= ft.Icons.ARROW_CIRCLE_UP_ROUNDED,on_click= lambda x : self.modificar_horas("+"),expand=True,bgcolor="#780000",icon_color="#fdf0d5")
+        self.btnRestarhora = ft.IconButton(icon=ft.Icons.ARROW_CIRCLE_DOWN_ROUNDED,on_click = lambda x : self.modificar_horas("-"),expand=True,bgcolor="#780000",icon_color="#fdf0d5")
         self.columnahora = ft.Column([
             ft.Text("Horas"),
             self.btnSumarHora,
@@ -113,12 +113,12 @@ class Timer(ft.Container):
 
 
 class Tarea(ft.Container):
-    def __init__(self):
+    def __init__(self,contenido):
         super().__init__()
         self.bgcolor ="#c1121f"
         self.offset = ft.Offset(-2,0)
         self.animate_offset = ft.Animation(1000)
-        self.text = ft.Text("ejemplo de texto de tarea",style=ft.TextStyle(decoration=ft.TextDecoration.LINE_THROUGH))
+        self.text = ft.Text(value=str(contenido),style=ft.TextStyle(decoration=ft.TextDecoration.LINE_THROUGH))
         self.checkBtn = ft.Checkbox()
         self.content = ft.Row([self.text,self.checkBtn],alignment=ft.MainAxisAlignment.CENTER)
     def animateTarea(self):
@@ -130,8 +130,8 @@ class TodoList(ft.Container):
         super().__init__()
         self.bgcolor ="#c1121f"
 
-        self.InputTarea = ft.TextField(border_width=0,border_radius=10,bgcolor="#780000")
-        self.btnAgregarTarea = ft.IconButton(icon=ft.Icons.ADD,bgcolor="#780000",on_click=self.agregarTarera)
+        self.InputTarea = ft.TextField(border_width=0,border_radius=10,bgcolor="#780000",label="Cosas por hacer...")
+        self.btnAgregarTarea = ft.IconButton(icon=ft.Icons.ADD,bgcolor="#780000",on_click=self.agregarTarera,icon_color="#fdf0d5")
         self.alignment = ft.alignment.center
         self.border_radius = 10
         self.height = 300
@@ -151,7 +151,7 @@ class TodoList(ft.Container):
 
     
     def agregarTarera(self,e):
-            nuevatarea = Tarea()
+            nuevatarea = Tarea(self.InputTarea.value)
             self.columnaDeTareas.controls.append(nuevatarea)
             self.update()
             self.page.run_task(self.anim_wait, nuevatarea)

@@ -15,8 +15,12 @@ def main(page: ft.Page):
 
 
 #DRAWER
+    def handle_change(e):
+            print(f"Selected Index changed: {e.control.selected_index}")
+            page.close(drawerMenu)
 
     drawerMenu = GenerarDrawer()
+    drawerMenu.on_change = handle_change
 
 #APPBAR
     app_bar = ft.AppBar(
