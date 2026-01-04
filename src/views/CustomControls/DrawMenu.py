@@ -11,13 +11,23 @@ def GenerarDrawer():
             bgcolor="#780000",
             controls=[
                 ft.Container(height=12),
+
                 ft.NavigationDrawerDestination(
-                    label="Item 1",
-                    icon=ft.Icons.Home,
-                    selected_icon=ft.Icon(ft.Icons.DOOR_BACK_DOOR),
+                    label="Perfil",
+                    icon=ft.Icons.PERSON,
+                    selected_icon=ft.Icon(ft.Icons.PERSON),
                     
                 ),
+
+                ft.Container(height=12),
                 ft.Divider(thickness=2),
+
+                ft.NavigationDrawerDestination(
+                    label="Estudiar",
+                    icon=ft.Icons.AV_TIMER,
+                    selected_icon=ft.Icon(ft.Icons.AV_TIMER),
+                    
+                ),
               
             ],
         )

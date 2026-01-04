@@ -1,7 +1,11 @@
 import flet as ft
+#VIEWS
 from views.home import home_view
+from views.Perfil import perfil_view
 
+#VIEWS
 from views.CustomControls.DrawMenu import GenerarDrawer
+
 def main(page: ft.Page):
 
     
@@ -13,24 +17,9 @@ def main(page: ft.Page):
         page.go(top_view.route) #page.go("/ruta")
 
 
+            
 
-#DRAWER
-    def handle_change(e):
-            print(f"Selected Index changed: {e.control.selected_index}")
-            page.close(drawerMenu)
 
-    drawerMenu = GenerarDrawer()
-    drawerMenu.on_change = handle_change
-
-#APPBAR
-    app_bar = ft.AppBar(
-        title=ft.Text("Pomotoro"),
-        bgcolor="#780000"
-        ,leading=ft.IconButton(
-            ft.Icons.MENU,
-            on_click=lambda e: page.open(drawerMenu)  # abre el drawer global
-        )
-    )
 
 
 # FUNCIONES DEL LOGIN
@@ -74,7 +63,33 @@ def main(page: ft.Page):
     
 
     def route_change(route):
+
+    #DRAWER
+        def handle_change(e):
+                print(f"Selected Index changed: {e.control.selected_index}")
+                seleccion = e.control.selected_index
+                page.close(drawerMenu)
+                if seleccion == 0:
+                    page.go("/perfil")
+                if seleccion == 1:
+                    page.go("/home")
+
         page.views.clear()
+
+        drawerMenu = GenerarDrawer()
+        drawerMenu.on_change = handle_change
+        #APPBAR
+        app_bar = ft.AppBar(
+        title=ft.Text("Pomotoro"),
+        bgcolor="#780000"
+        ,leading=ft.IconButton(
+            ft.Icons.MENU,
+            on_click=lambda e: page.open(drawerMenu)  # abre el drawer global
+        )
+    )
+
+
+
         page.views.append(
             #AQUI VAN LAS VIEWS
             #ft.view("/",[controladores])
@@ -84,7 +99,11 @@ def main(page: ft.Page):
         )
         if page.route == "/home":
             page.views.append(home_view(drawerMenu,app_bar))
+        if page.route == "/perfil":
+            page.views.append(perfil_view(drawerMenu,app_bar))
         page.update()
+
+
 
 
 
