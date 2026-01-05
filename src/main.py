@@ -6,6 +6,9 @@ from views.Perfil import perfil_view
 #VIEWS
 from views.CustomControls.DrawMenu import GenerarDrawer
 
+#FUNCIONES
+from BD import login_BD
+
 def main(page: ft.Page):
 
     
@@ -24,19 +27,36 @@ def main(page: ft.Page):
 
 # FUNCIONES DEL LOGIN
     def login(e):
-        page.go("/home")
+        respuesta = login_BD(inputEmail.value,inputPassword.value)
+        if respuesta == True:
+            page.go("/home")
+        else:
+            aviso_de_fail.visible = True
+            page.update()
+
+
+
+
+
+
+
+
    
 
+
+
+    inputEmail = ft.TextField(label="tuCorreo@direccion.com",border_width=0,bgcolor="#780000")
+    inputPassword = ft.TextField(password=True,border_width=0,bgcolor="#780000")
+    aviso_de_fail = ft.Text("Contrasena o Usuario incorrecto",color= ft.Colors.PURPLE_900,visible=False)
 
     comlumnaLogin = ft.Column([
 
        ft.Container(content= ft.Text(value="correo"),alignment=ft.alignment.center),
-        ft.TextField(label="tuCorreo@direccion.com",border_width=0,bgcolor="#780000"),
+        inputEmail,
         ft.Text(value="contrasena",text_align=ft.TextAlign.CENTER),
-        ft.TextField(password=True,border_width=0,bgcolor="#780000"),
+        inputPassword,
         ft.CupertinoButton(bgcolor="#fdf0d5",text="iniciar sesion",border_radius=10,on_click=login,color=ft.Colors.BLACK)
-
-
+        ,aviso_de_fail
 
 
 
