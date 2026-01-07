@@ -2,8 +2,8 @@ import flet as ft
 #VIEWS
 from views.home import home_view
 from views.Perfil import perfil_view
-
-#VIEWS
+from views.Musica import musica_view
+#DRAWER
 from views.CustomControls.DrawMenu import GenerarDrawer
 
 #FUNCIONES
@@ -93,6 +93,8 @@ def main(page: ft.Page):
                     page.go("/perfil")
                 if seleccion == 1:
                     page.go("/home")
+                if seleccion ==2:
+                    page.go("/musica")
 
         page.views.clear()
 
@@ -121,6 +123,9 @@ def main(page: ft.Page):
             page.views.append(home_view(drawerMenu,app_bar))
         if page.route == "/perfil":
             page.views.append(perfil_view(drawerMenu,app_bar))
+        if page.route == "/musica":
+            page.views.append(musica_view(drawerMenu,app_bar))
+
         page.update()
 
 

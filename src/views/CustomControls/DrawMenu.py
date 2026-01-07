@@ -26,8 +26,16 @@ def GenerarDrawer():
                     label="Estudiar",
                     icon=ft.Icons.AV_TIMER,
                     selected_icon=ft.Icon(ft.Icons.AV_TIMER),
-                    
                 ),
+                ft.Divider(thickness=2),
+                    
+                ft.NavigationDrawerDestination(
+                    label="Musica",
+                    icon=ft.Icons.RADIO,
+                    selected_icon=ft.Icon(ft.Icons.AV_TIMER),
+                    
+                )
+                
               
             ],
         )
